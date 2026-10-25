@@ -32,6 +32,8 @@ If you are new to the area, these papers give the shape of the field.
 
 {{OPEN_PROBLEMS}}
 
+{{SURPRISES}}
+
 ## Papers by Year
 
 The table covers 2022 onward. The topic pages also hold {{N_PRE}} earlier papers, going back to {{MIN_YEAR}}.

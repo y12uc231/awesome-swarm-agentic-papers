@@ -131,6 +131,29 @@ def render_open_problems(problems, papers_by_id):
     return "\n".join(lines)
 
 
+SURPRISES_INTRO = (
+    "Things the field often takes for granted that these papers tested and found not to hold, followed by things people "
+    "expected not to work that did. Drawn from the same full-text reading as Open Problems plus {n_extra} papers known "
+    "for counterintuitive results; every finding below is a result the paper itself demonstrates."
+)
+
+
+def render_surprises(data, papers_by_id):
+    lines = ["## Surprising Findings: Assumptions That Did Not Hold", "",
+             SURPRISES_INTRO.format(n_extra=12), "", "### Assumptions that did not hold", ""]
+    for kind in ("assumptions", "worked"):
+        if kind == "worked":
+            lines += ["### Things that worked better than expected", ""]
+        for i, item in enumerate(data[kind], 1):
+            lines.append(f"{i}. **\u201c{item['belief'].rstrip('.')}.\u201d** {item['reality']}")
+            for ev in item["evidence"]:
+                assert ev["arxiv"] in papers_by_id, f"cited paper not in list: {ev['arxiv']}"
+                lines.append(f"   - [{md(ev['label'])}](https://arxiv.org/abs/{ev['arxiv']}) ({ev['lab']}): {md(ev['finding'])}.")
+            lines.append("")
+    lines.append("[⬆ Back to top](#)")
+    return "\n".join(lines)
+
+
 def main():
     papers = yaml.safe_load((ROOT / "data" / "papers.yaml").read_text())
     known = {k for _, _, subs in SECTIONS for k, _ in subs}
@@ -148,7 +171,8 @@ def main():
                  "{{N_PRE}}": f"{len(papers) - llm_era:,}", "{{MIN_YEAR}}": str(min(years))}.items():
         head = head.replace(k, v)
 
-    toc = ["## Contents", "", "- [Open Problems: Where the Field Is Stuck](#open-problems-where-the-field-is-stuck)"]
+    toc = ["## Contents", "", "- [Open Problems: Where the Field Is Stuck](#open-problems-where-the-field-is-stuck)",
+           "- [Surprising Findings: Assumptions That Did Not Hold](#surprising-findings-assumptions-that-did-not-hold)"]
     (ROOT / "papers").mkdir(exist_ok=True)
     for gtitle, intro, subs in SECTIONS:
         slug = anchor(gtitle.replace("&", "and"))
@@ -169,6 +193,8 @@ def main():
 
     problems = yaml.safe_load((ROOT / "data" / "open_problems.yaml").read_text())
     head = head.replace("{{OPEN_PROBLEMS}}", render_open_problems(problems, {p.get("arxiv"): p for p in papers}))
+    surprises = yaml.safe_load((ROOT / "data" / "surprising_findings.yaml").read_text())
+    head = head.replace("{{SURPRISES}}", render_surprises(surprises, {p.get("arxiv"): p for p in papers}))
 
     year_rows = ["| Year | Papers |", "|---|---|"] + [f"| {y} | {years[y]} |" for y in sorted(years) if y >= 2022]
     head = head.replace("{{YEAR_TABLE}}", "\n".join(year_rows))

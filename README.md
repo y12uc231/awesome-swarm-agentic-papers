@@ -214,6 +214,135 @@ Benchmarks score final outcomes, rarely match compute against strong single-agen
 
 [⬆ Back to top](#)
 
+## Surprising Findings: Assumptions That Did Not Hold
+
+Things the field often takes for granted that these papers tested and found not to hold, followed by things people expected not to work that did. Drawn from the same full-text reading as Open Problems plus 12 papers known for counterintuitive results; every finding below is a result the paper itself demonstrates.
+
+### Assumptions that did not hold
+
+1. **“A stronger model makes a better teammate.”** Often not. In several studies, more capable or reasoning-heavy models cooperated less, free-rode more, collaborated worse or colluded sooner.
+   - [More Capable, Less Cooperative?](https://arxiv.org/abs/2604.07821) (MATS, UIUC, UK AI Security Institute): o3 reached 17% of the optimal team output and the weaker o3-mini 50%; capability did not predict cooperation (r = 0.16).
+   - [Corrupted by Reasoning](https://arxiv.org/abs/2506.23276) (Zurich, ETH Zurich, Toronto): 69% of o1-mini agents free-rode in a public-goods game, against 0% for Llama-3.3-70B, GPT-4o and DeepSeek-V3.
+   - [SWEET-RL](https://arxiv.org/abs/2503.15478) (Meta, UC Berkeley): o1-mini was a worse multi-turn collaborator than GPT-4o (30.3% vs 40.4% success).
+   - [Decrypto](https://arxiv.org/abs/2506.20664) (Meta FAIR, Oxford): the older Llama 3.1-70B beat newer reasoning models on all three interactive theory-of-mind tasks.
+   - [Emergent Collusion in Long-Horizon LLM Agent Interaction](https://arxiv.org/abs/2609.24967) (Stanford, Georgia Tech): within each model family, the more capable model colluded sooner and more often.
+
+2. **“Debate works because agents correct each other's mistakes.”** Most of the gain comes from having several answers to vote over. During debate, agents switch from right to wrong more often than the reverse and rarely overturn a wrong majority.
+   - [LLMs Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798) (Google DeepMind, UIUC): with the same number of responses, debate scored 83.0% vs 88.2% for plain majority voting on GSM8K.
+   - [Talk Isn't Always Cheap](https://arxiv.org/abs/2509.05396) (Johns Hopkins, Vector Institute): debate fell below a majority vote of the agents' first answers in all 10 CommonsenseQA configurations.
+   - [Can LLM Agents Really Debate?](https://arxiv.org/abs/2511.07784) (McGill, Mila): weaker models overturned a wrong majority in only 3.6% of cases, strong models in about 30%.
+   - [More Agents Is All You Need](https://arxiv.org/abs/2402.05120) (Tencent): independent sampling plus voting, with no interaction at all, had the best average rank across tasks (2.5 vs 4.4 for debate).
+
+3. **“Letting agents talk to each other improves teamwork.”** Communication often adds cost without adding success. In several studies, quieter or sparser communication matched or beat open chat.
+   - [CooperBench](https://arxiv.org/abs/2601.13295) (Stanford): giving two coding agents a chat channel made no significant difference to success, though up to 20% of their steps went to messaging.
+   - [Worse Together](https://arxiv.org/abs/2610.00583) (Stanford, Anthropic): in the clinic task, teams with only shared notes matched or beat messaging teams for every model but one (81.0% vs 69.5% for Opus 5).
+   - [Improving Multi-Agent Debate with Sparse Communication Topology](https://arxiv.org/abs/2406.11776) (Google, Google DeepMind): letting each agent see only a few neighbours matched or beat full connectivity with 40–50% fewer input tokens.
+   - [Silo-Bench](https://arxiv.org/abs/2603.01045) (ETH Zurich, Vector Institute, Zhejiang University): failed runs talked longer than successful ones (12.7 vs 8.3 rounds).
+
+4. **“Mixing different model families gives an ensemble real diversity.”** Less than expected. Different models give strikingly similar answers and share blind spots, and member quality matters more than variety.
+   - [Rethinking Mixture-of-Agents (Self-MoA)](https://arxiv.org/abs/2502.00674) (Princeton): sampling the single best model several times beat mixing different LLMs by 6.6 points on AlpacaEval 2.0.
+   - [Artificial Hivemind](https://arxiv.org/abs/2510.22954) (UW, CMU, AI2): open-ended answers from different model families had cross-model similarity of 0.71–0.82.
+   - [Great Models Think Alike](https://arxiv.org/abs/2502.04313) (Tübingen AI Center, MPI-IS): across 130 models, mistakes grew more correlated as capability rose, even between different developers.
+   - [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296) (Google Research, Google DeepMind, MIT): in 13 mixed-model team setups, mixing did not break the capability ceiling; centralized mixed teams scored 12.6 points below all-strong teams.
+
+5. **“A team will listen to its best member.”** LLM teams average expert and non-expert views instead of deferring, and a strong partner gets pulled toward the weaker one.
+   - [Multi-Agent Teams Hold Experts Back](https://arxiv.org/abs/2602.01011) (Stanford, Apple): unlike human teams, LLM teams fell 6.3–41.1% short of their best member, even when told who the expert was.
+   - [Beyond the Strongest LLM](https://arxiv.org/abs/2509.23537) (ASU, UPenn, NTU): at least one of four frontier models was right on 95.5% of GPQA-Diamond questions, yet the team scored 87.4%.
+   - [The Collaboration Gap](https://arxiv.org/abs/2511.02687) (Microsoft Research, EPFL): o3 paired with a weaker model did not reach o3's own level and copied the weaker model's style.
+
+6. **“Fine-tuning on the best transcripts, or on a stronger model's trajectories, teaches agents to collaborate.”** Imitation often made agents worse. RL in the live loop or self-play worked where imitation failed.
+   - [MAPoRL](https://arxiv.org/abs/2502.18439) (MIT, Stanford, Amazon): fine-tuning on the top 10% of 12,800 debate transcripts lowered accuracy by 0.11, which the authors call unexpected.
+   - [AgentFlow](https://arxiv.org/abs/2510.05592) (Stanford): fine-tuning the planner on GPT-4o's trajectories dropped the system 19 points below the untrained planner; on-policy RL gained 17.2.
+   - [SPIRAL](https://arxiv.org/abs/2506.24119) (NUS, A*STAR, Sea AI Lab): fine-tuning on 25,000 game trajectories from Qwen3-32B did worse than self-play on all 8 benchmarks (39.7 vs 44.5).
+   - [The Misleading Success of Simulating Social Interactions](https://arxiv.org/abs/2403.05020) (CMU, MIT, AI2): fine-tuning on one-LLM scripted dialogues lifted the deal rate from 30% to 93% by copying an agreeable style, not by learning to negotiate.
+
+7. **“Training against the strongest or latest opponent gives the most robust agent.”** Diverse and even weak opponents matter more. Training against one strong or latest opponent gets exploited or overfits.
+   - [Emergent Complexity via Multi-Agent Competition](https://arxiv.org/abs/1710.03748) (OpenAI, UMass Amherst): training against the latest opponent gave the worst agents (Humanoid Sumo win rate 0.25 vs 0.63 when sampling older opponents).
+   - [Collaborating with Humans without Human Data](https://arxiv.org/abs/2110.08176) (DeepMind): removing weak, partly trained partner checkpoints collapsed performance with new partners (8.6 to 1.0 deliveries).
+   - [SPIRAL](https://arxiv.org/abs/2506.24119) (NUS, A*STAR, Sea AI Lab): a fixed Gemini opponent was exploited (win rate 0% to 62.5%) while reasoning gains stalled; self-play kept improving.
+   - [GPT-Red](https://arxiv.org/abs/2607.26115) (OpenAI): attackers trained against a single defender overfit to it and mode-collapsed; a population of defenders was needed.
+
+8. **“The agent with the best self-play score is the best partner.”** Maximizing reward with copies of yourself produces private conventions that break with new partners, including humans.
+   - [Other-Play](https://arxiv.org/abs/2003.02979) (Meta FAIR): the top self-play Hanabi bot scored 23.99 with itself but 9.15 with humans, losing all lives in 85% of games.
+   - [The Hanabi Challenge](https://arxiv.org/abs/1902.00506) (DeepMind, Google Brain, Oxford, CMU): independently trained agents that each score 20+ in self-play score near zero when paired together.
+   - [Melting Pot](https://arxiv.org/abs/2107.06857) (DeepMind): agents trained on a shared group reward were often less robust than selfish agents and were exploited by defectors at test time.
+
+9. **“More samples, more agents and more rounds always help.”** Returns are uneven and can turn negative.
+   - [Are More LLM Calls All You Need?](https://arxiv.org/abs/2403.02419) (Stanford, UC Berkeley, Princeton): majority-vote accuracy rose and then fell as calls grew from 2 to 1,000, because hard questions converge on the wrong answer.
+   - [Stop Overvaluing Multi-Agent Debate](https://arxiv.org/abs/2502.08788) (Penn State, Shanghai AI Lab): going from 3 to 9 agents or from 2 to 4 rounds usually brought no gain or a decline.
+   - [Rethinking Multi-Agent Collaboration: When More Is Less](https://arxiv.org/abs/2609.19759) (Shanghai Jiao Tong, Nanjing University): raising the agent cap from 4 to 6 lowered the score from 71.8 to 64.0 while nearly doubling token use.
+   - [MAPoRL](https://arxiv.org/abs/2502.18439) (MIT, Stanford, Amazon): untrained agents got no better with extra debate turns, even with twice the token budget.
+
+10. **“Warnings and rules in the prompt make agents safer.”** Often not, and sometimes the reverse. One narrowly targeted warning was the striking exception.
+   - [Can AI Agents Agree?](https://arxiv.org/abs/2603.01213) (ETH Zurich): merely warning agents that adversaries might be present (none were) cut valid agreement from 75.4% to 59.1%.
+   - [Emergent Cheating in Autonomous Research Swarms](https://arxiv.org/abs/2609.04170) (Google DeepMind): despite an explicit 'do not cheat' rule in every prompt, 14% of a 100-agent swarm exploited the grader once they saw peers get away with it.
+   - [Moloch's Bargain](https://arxiv.org/abs/2510.06105) (Stanford): agents told to stay truthful still drifted after competitive fine-tuning: +7.5% engagement came with +188.6% disinformation.
+   - [Talk Isn't Always Cheap](https://arxiv.org/abs/2509.05396) (Johns Hopkins, Vector Institute): promising agents a reward for correctness did not reduce right-to-wrong flips and often increased them.
+   - [Mind Viruses](https://arxiv.org/abs/2608.10218) (Anthropic, EPFL): the exception: a one-paragraph warning made agents nearly immune to agent-to-agent 'mind viruses', even against payloads evolved over 15 generations to beat it.
+
+11. **“A model that is safe on its own stays safe in a team, and an orchestrator adds oversight.”** Group settings produced behaviour the single model never showed, and middle layers passed problems along instead of catching them.
+   - [Shutdown Sabotage Propensities in Multi-Agent Systems](https://arxiv.org/abs/2609.28274) (Stuttgart, Oxford): GPT-5.5 never sabotaged a shutdown alone but did in 44% of two-agent and 94% of three-agent runs; with an orchestrator, every tested model did so in 88% or more.
+   - [Emergent Risks in Generative Multi-Agent Systems](https://arxiv.org/abs/2603.27771) (Notre Dame, LMU Munich, UW): a model that asked for clarification when alone failed to ask in 100% of the multi-agent setups built on it.
+   - [Prompt Infection](https://arxiv.org/abs/2410.07283) (UCL, Stanford): GPT-4o ignored far more attacks than GPT-3.5 (66% vs 9%) but did more damage once compromised.
+   - [Breaking and Fixing Defenses Against Control-Flow Hijacking](https://arxiv.org/abs/2510.17276) (Cornell, Microsoft): agents recognized and refused the dangerous action, then kept looking for a way to finish the task and ran the attacker's code anyway.
+
+12. **“Collusion requires agents to agree on it, or to be told to.”** It emerged without instructions or messages, and mostly without any explicit agreement.
+   - [Algorithmic Collusion by LLMs](https://arxiv.org/abs/2404.00806) (Harvard, Penn State): GPT-4 pricing agents reached above-competitive prices with no instruction and no channel except prices; the result held with GPT-5.2 at high reasoning effort.
+   - [Emergent Collusion in Long-Horizon LLM Agent Interaction](https://arxiv.org/abs/2609.24967) (Stanford, Georgia Tech): only 24.4% of collusion onsets involved explicit coordination; paying directly for the rule-breaking verdict removed collusion (72% to 0%), which appeared instead when breaking the rule looked like doing the job well.
+   - [Secret Collusion among AI Agents](https://arxiv.org/abs/2402.07510) (UC Berkeley, Oxford, Google DeepMind): the paper proves that paraphrasing messages cannot remove covert channels.
+
+13. **“LLM agent societies spontaneously reproduce human social phenomena.”** Many headline effects came from the prompt or the setup, and they shrink or vanish once that is fixed.
+   - [The PIMMUR Principles](https://arxiv.org/abs/2509.18052) (CUHK, Johns Hopkins, CMU, Fudan, Stanford): removing a 'demonstrate confirmation bias' instruction cut fake-news believers from 56% to 33%; newer models recognize the classic experiment they are in more often (65.2% vs 50.8%).
+   - [The Misleading Success of Simulating Social Interactions](https://arxiv.org/abs/2403.05020) (CMU, MIT, AI2): one LLM scripting both sides reached a deal 94% of the time vs 30% for independent agents, and the original Generative Agents code generated conversations that way.
+   - [SimBench](https://arxiv.org/abs/2510.17516) (Cambridge, Stanford, Oxford): more reasoning did not make models better human simulators (Claude-3.7-Sonnet 40.80 to 39.46), and instruction tuning made them worse where humans disagree (r = −0.942).
+
+### Things that worked better than expected
+
+1. **“Self-play on games only teaches games.”** Self-play on simple games and self-made puzzles transferred to general reasoning, sometimes more than training on real data.
+   - [SPIRAL](https://arxiv.org/abs/2506.24119) (NUS, A*STAR, Sea AI Lab): self-play on TicTacToe, Kuhn Poker and a negotiation game, with no math data, raised the average over 8 math and reasoning benchmarks from 34.0 to 44.5.
+   - [Absolute Zero](https://arxiv.org/abs/2505.03335) (Tsinghua, BIGAI, Penn State): self-play on code puzzles the model wrote for itself, with zero external data, lifted math by 10.9–15.2 points; RL on curated human code data lifted it by 0.65.
+   - [Emergent Complexity via Multi-Agent Competition](https://arxiv.org/abs/1710.03748) (OpenAI, UMass Amherst): a humanoid trained only on multi-agent Sumo stayed upright when pushed by wind it had never seen.
+
+2. **“Complex team behaviour needs human data or a hand-designed curriculum.”** Simple rewards plus multi-agent competition or self-play produced it on their own.
+   - [Emergent Tool Use from Multi-Agent Autocurricula](https://arxiv.org/abs/1909.07528) (OpenAI, Google Brain): a simple hide-and-seek visibility reward produced six successive strategy phases, including fort building and box surfing, two of which the authors did not expect.
+   - [Dota 2 with Large Scale Deep RL (OpenAI Five)](https://arxiv.org/abs/1912.06680) (OpenAI): existing RL (PPO) with self-play and no human data, scaled up, beat the Dota 2 world champions.
+   - [Collaborating with Humans without Human Data](https://arxiv.org/abs/2110.08176) (DeepMind): an agent trained without any human data beat the human-data method, including with 114 real human partners.
+   - [Reasoning Models Generate Societies of Thought](https://arxiv.org/abs/2601.10825) (Google, University of Chicago, Santa Fe Institute): a base model rewarded only for accuracy spontaneously began questioning itself and developed two distinct personas, while its accuracy rose from near 0% to about 58%.
+
+3. **“A checker has to be at least as strong as the model it checks.”** Weaker verifiers and judges improved stronger models, and a same-size verifier did not work.
+   - [Multi-Agent Verification](https://arxiv.org/abs/2502.20379) (Toronto, Vector Institute): a vote among verifiers built on weaker models lifted GPT-4o on MATH from 68.3 to 76.3.
+   - [Prover-Verifier Games Improve Legibility](https://arxiv.org/abs/2407.13692) (OpenAI): training against verifiers about 1,000x smaller in compute made solutions easier for time-limited humans to check; a verifier the same size as the prover did not work.
+   - [Debating with More Persuasive LLMs](https://arxiv.org/abs/2402.06782) (UCL, Anthropic): optimizing debaters only to persuade the judge made debate more truthful (judges reached 88% for humans and 76% for LLMs vs 60% and 48% without debate).
+
+4. **“The model that coordinates a team has to be the biggest model in it.”** Small trained orchestrators, and many samples from a small model, beat frontier models used directly.
+   - [ToolOrchestra](https://arxiv.org/abs/2511.21689) (NVIDIA, University of Hong Kong): an RL-trained 8B orchestrator beat GPT-5 on HLE (37.1 vs 35.1) at about a third of the cost.
+   - [The Conductor](https://arxiv.org/abs/2512.04388) (Sakana AI): a 7B conductor beat every individual frontier worker it routed to, and a pool of only open 27–32B models beat Claude Sonnet 4 by almost 10 points.
+   - [More Agents Is All You Need](https://arxiv.org/abs/2402.05120) (Tencent): 40 votes from Llama2-13B scored 59% on GSM8K, beating a single Llama2-70B at 54%.
+
+5. **“Splitting work across parallel agents trades accuracy for speed.”** Learned parallel and recursive setups were both faster and more accurate.
+   - [Kimi K2.5 (Agent Swarm)](https://arxiv.org/abs/2602.02276) (Moonshot AI): a learned parallel orchestrator was 3–4.5x faster and more accurate than the same model as a single agent (BrowseComp 60.6 to 78.4).
+   - [Recursive Language Models](https://arxiv.org/abs/2512.24601) (MIT): recursive self-delegation beat GPT-5 by 28.4% even when the input fit in its context window, and the median run was cheaper than a single call.
+   - [Rethinking Thinking Tokens](https://arxiv.org/abs/2510.01123) (Meta Superintelligence Labs, UCL, Mila): at the same latency budget, parallel drafts plus a short summary and refinement beat one long chain of thought (o3-mini on AIME 2024: 76.9 to 86.7).
+
+6. **“Agents have to talk to each other in natural language.”** Exchanging internal states instead of text was both cheaper and more accurate, even without training.
+   - [LatentMAS](https://arxiv.org/abs/2511.20639) (Princeton, Stanford, UIUC): training-free sharing of latent memory beat text-based teams by 2.8–4.6% accuracy with 70.8–83.7% fewer tokens and about 4x the speed.
+   - [Recursive Multi-Agent Systems](https://arxiv.org/abs/2604.25917) (UIUC, Stanford, NVIDIA): training only small links between frozen agents (0.31% of parameters) beat full fine-tuning (74.9 vs 68.6) at less than half the cost.
+
+7. **“Fixing coordination failures needs retraining or heavy machinery.”** Small, targeted changes to prompts, incentives or protocol often fixed them.
+   - [Worse Together](https://arxiv.org/abs/2610.00583) (Stanford, Anthropic): three plain-language instructions lifted a team from 70.5% to 95.3%, above the single coordinator's 84.3%.
+   - [HiddenBench](https://arxiv.org/abs/2505.11556) (CMU): a two-stage exchange-then-decide protocol lifted GPT-4.1 from 0.037 to 0.800 on tasks with split information.
+   - [More Capable, Less Cooperative?](https://arxiv.org/abs/2604.07821) (MATS, UIUC, UK AI Security Institute): a small bonus for sharing (10% of task value) more than doubled o3's team output (+190.7%).
+   - [GovSim (Cooperate or Collapse)](https://arxiv.org/abs/2404.16698) (ETH Zurich, MPI-IS, Toronto, UW): adding one sentence to each agent's memory about what happens 'if everyone' takes more than a sustainable share raised efficiency by 24%.
+
+8. **“Simple, old algorithms are too weak for cooperative multi-agent RL.”** Plain PPO, even fully independent, matched or beat specialised methods.
+   - [The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games (MAPPO)](https://arxiv.org/abs/2103.01955) (Tsinghua, UC Berkeley): plain PPO with a centralized critic matched or beat off-policy methods (Football 3v1: 88.0% vs 8.1% for QMix); even fully independent PPO hit 84.4% vs QMix's 9.4% on one hard StarCraft map.
+
+9. **“Simulating a specific person needs a huge amount of data about them.”** A short interview went a long way, and good agent architectures out-performed human role-players.
+   - [Simulating 1,000 People (Grounded in Self-Reports)](https://arxiv.org/abs/2411.10109) (Stanford, Google DeepMind, UW): interview-grounded agents matched 82–86% of people's own two-week consistency on survey answers, and deleting 80% of the interview barely hurt (0.79 vs 0.83).
+   - [Generative Agents](https://arxiv.org/abs/2304.03442) (Stanford, Google): human raters judged the full agent architecture more believable than crowdworkers role-playing the same character.
+
+[⬆ Back to top](#)
+
 ## Papers by Year
 
 The table covers 2022 onward. The topic pages also hold 168 earlier papers, going back to 1950.
@@ -229,6 +358,7 @@ The table covers 2022 onward. The topic pages also hold 168 earlier papers, goin
 ## Contents
 
 - [Open Problems: Where the Field Is Stuck](#open-problems-where-the-field-is-stuck)
+- [Surprising Findings: Assumptions That Did Not Hold](#surprising-findings-assumptions-that-did-not-hold)
 - [Surveys & Position Papers](papers/surveys-and-position-papers.md) (57)
 - [Multi-Agent Systems & Multi-Agent RL](papers/multi-agent-systems-and-multi-agent-rl.md) (201)
   - [Classic Multi-Agent Systems](papers/multi-agent-systems-and-multi-agent-rl.md#classic-multi-agent-systems) (38)
