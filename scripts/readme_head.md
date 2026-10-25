@@ -1,13 +1,14 @@
 # Awesome Swarm Agentic Papers [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-![papers](https://img.shields.io/badge/papers-{{N_PAPERS}}-blue) ![updated](https://img.shields.io/badge/updated-Oct%202026-green) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing) [![License: CC0](https://img.shields.io/badge/license-CC0-lightgrey.svg)](#license)
+![papers](https://img.shields.io/badge/papers-{{N_PAPERS_PLAIN}}-blue) ![updated](https://img.shields.io/badge/updated-Oct%202026-green) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing) [![License: CC0](https://img.shields.io/badge/license-CC0-lightgrey.svg)](#license)
 
-A curated list of papers on **multi-agent and swarm agentic systems**: many agents (LLM-based or not) that work together, argue, compete, or get trained as a group. It runs from early swarm intelligence and multi-agent RL to recent LLM agent societies, and covers **frameworks, orchestration, automated system design, debate, training (RL, fine-tuning, self-play), data synthesis, evaluation, simulation, safety and applications**.
+A curated list of papers on **multi-agent and swarm agentic systems**: many agents (LLM-based or not) that work together, argue, compete, or are trained as a group. It runs from early game theory, multi-agent systems and swarm intelligence to recent LLM agent societies, and covers **frameworks, orchestration, automated system design, debate, training (RL, fine-tuning, self-play), data synthesis, evaluation, simulation, safety and applications**.
 
-- **{{N_PAPERS}} papers** in total, {{N_LLM}} of them from 2022 or later.
-- Every link was checked. arXiv IDs were checked against arXiv (titles and dates come from arXiv itself), DOIs against Crossref, and code links against GitHub. Each one-line note on an arXiv paper was written from, or checked against, that paper's abstract. Papers withdrawn on arXiv are left out.
-- Within each section, papers are listed newest first. The date is the first arXiv version (or the publication date if there is no arXiv version). Titles are the current arXiv titles, which are sometimes newer than the name the paper is known by.
-- The list is split into one page per topic (see [Contents](#contents)), because a single page this long is too big for GitHub to render. To search every paper at once, search [`data/papers.yaml`](data/papers.yaml), which is the source for all pages. The pages are generated from it by [`scripts/build_readme.py`](scripts/build_readme.py).
+- **{{N_PAPERS}} papers** in total. {{N_LLM}} of them are from 2022 or later.
+- Every paper link and code link was checked. arXiv IDs were checked against arXiv, DOIs against Crossref, other paper pages by loading them, and code links against GitHub.
+- Each one-line note on an arXiv paper was written from, or checked against, that paper's abstract. Papers withdrawn on arXiv are left out.
+- For arXiv papers, titles and dates come from arXiv. Titles are the current arXiv versions, so a few differ from the name a paper is best known by. Dates are the first arXiv version. Papers that are not on arXiv, or were posted there years after publication, show their publication year instead.
+- The list has one page per topic (see [Contents](#contents)), because a single page with every paper would be over 500 KB, which GitHub may not render in full. To search all papers at once, search [`data/papers.yaml`](data/papers.yaml), which is the source for every page.
 
 ## Start Here
 
@@ -15,8 +16,8 @@ If you are new to the area, these papers give the shape of the field.
 
 | Paper | Why read it |
 |---|---|
-| [Particle Swarm Optimization](https://doi.org/10.1109/ICNN.1995.488968) (1995) | The classic swarm-intelligence algorithm. Simple agents share their best positions to search a space. |
-| [MADDPG](https://arxiv.org/abs/1706.02275) (2017) / [QMIX](https://arxiv.org/abs/1803.11485) (2018) | Centralized training with decentralized execution, the standard pattern in cooperative multi-agent RL. |
+| [Particle Swarm Optimization](https://doi.org/10.1109/ICNN.1995.488968) (1995) | A classic swarm-intelligence algorithm. Simple agents share their best positions to search a space. |
+| [MADDPG](https://arxiv.org/abs/1706.02275) (2017) / [QMIX](https://arxiv.org/abs/1803.11485) (2018) | Centralized training with decentralized execution, a common pattern in multi-agent RL. |
 | [Generative Agents](https://arxiv.org/abs/2304.03442) (2023) | 25 LLM agents with memory and reflection live in a sandbox town and show believable social behaviour. |
 | [CAMEL](https://arxiv.org/abs/2303.17760) (2023) | An early role-playing LLM agent framework. Two agents cooperate through inception prompting. |
 | [Multiagent Debate](https://arxiv.org/abs/2305.14325) (2023) | Several LLM copies debate over rounds, which improves reasoning and factuality. |
@@ -29,6 +30,8 @@ If you are new to the area, these papers give the shape of the field.
 | [Multi-Agent Risks from Advanced AI](https://arxiv.org/abs/2502.14143) (2025) | Miscoordination, conflict and collusion as distinct risk classes. |
 | [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296) (2025) | Controlled experiments on when adding agents helps and when it hurts. |
 
-## Papers by Year (2022 onward)
+## Papers by Year
+
+The table covers 2022 onward. The topic pages also hold {{N_PRE}} earlier papers, going back to {{MIN_YEAR}}.
 
 {{YEAR_TABLE}}

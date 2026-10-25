@@ -1,6 +1,6 @@
 # Data Synthesis with Multi-Agent Systems
 
-[⬅ Back to the main list](../README.md) · 49 papers, newest first within each section.
+[⬅ Back to the main list](../README.md) · 49 papers, newest first.
 
 *Agent teams and simulations that generate training data.*
 

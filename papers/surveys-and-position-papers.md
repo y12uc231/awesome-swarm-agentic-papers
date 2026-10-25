@@ -1,6 +1,6 @@
 # Surveys & Position Papers
 
-[⬅ Back to the main list](../README.md) · 57 papers, newest first within each section.
+[⬅ Back to the main list](../README.md) · 57 papers, newest first.
 
 *Overviews of LLM-based multi-agent systems, agent protocols, simulation, training and safety.*
 

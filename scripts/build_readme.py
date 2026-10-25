@@ -19,7 +19,7 @@ SECTIONS = [
         ("classic_mas", "Classic Multi-Agent Systems"),
         ("marl", "Multi-Agent Reinforcement Learning & Emergent Communication"),
     ]),
-    ("Swarm Intelligence", "Collective behaviour from simple local rules, and recent work that brings swarm ideas to LLMs and their weights.", [
+    ("Swarm Intelligence", "Collective behaviour from simple local rules, and recent work that brings swarm ideas to LLM agents, robot swarms and model weights.", [
         ("swarm_classic", "Classic Swarm Intelligence & Swarm Robotics"),
         ("swarm_llm", "LLM Agent Swarms & Swarm-Inspired Methods"),
     ]),
@@ -87,8 +87,12 @@ def link(p):
     return p["url"]
 
 
+def md(text):
+    return text.replace("*", "\\*")
+
+
 def entry(p):
-    parts = [f"`{p['date']}`", f"**[{p['title']}]({link(p)})**"]
+    parts = [f"`{p['date']}`", f"**[{md(p['title'])}]({link(p)})**"]
     meta = " · ".join(x for x in [p.get("authors"), f"*{p['venue']}*" if p.get("venue") else None] if x)
     line = "- " + " ".join(parts)
     if meta:
@@ -96,7 +100,7 @@ def entry(p):
     if p.get("code"):
         line += f" · [[code]({p['code']})]"
     if p.get("note"):
-        line += f"<br>{p['note']}"
+        line += f"<br>{md(p['note'])}"
     return line
 
 
@@ -113,7 +117,9 @@ def main():
     tail = (ROOT / "scripts" / "readme_tail.md").read_text()
     years = Counter(int(str(p["date"])[:4]) for p in papers)
     llm_era = sum(v for y, v in years.items() if y >= 2022)
-    head = head.replace("{{N_PAPERS}}", str(len(papers))).replace("{{N_LLM}}", str(llm_era))
+    for k, v in {"{{N_PAPERS_PLAIN}}": str(len(papers)), "{{N_PAPERS}}": f"{len(papers):,}", "{{N_LLM}}": f"{llm_era:,}",
+                 "{{N_PRE}}": f"{len(papers) - llm_era:,}", "{{MIN_YEAR}}": str(min(years))}.items():
+        head = head.replace(k, v)
 
     toc = ["## Contents", ""]
     (ROOT / "papers").mkdir(exist_ok=True)
@@ -121,7 +127,8 @@ def main():
         slug = anchor(gtitle.replace("&", "and"))
         gcount = sum(len(by_sec.get(k, [])) for k, _ in subs)
         toc.append(f"- [{gtitle}](papers/{slug}.md) ({gcount})")
-        page = [f"# {gtitle}", "", f"[⬅ Back to the main list](../README.md) · {gcount} papers, newest first within each section.", "", f"*{intro}*", ""]
+        order = "newest first within each section" if any(t for _, t in subs) else "newest first"
+        page = [f"# {gtitle}", "", f"[⬅ Back to the main list](../README.md) · {gcount:,} papers, {order}.", "", f"*{intro}*", ""]
         if any(t for _, t in subs):
             page += [f"- [{t}](#{anchor(t)}) ({len(by_sec.get(k, []))})" for k, t in subs] + [""]
         for key, stitle in subs:

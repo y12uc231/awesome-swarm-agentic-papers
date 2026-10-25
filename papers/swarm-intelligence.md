@@ -2,7 +2,7 @@
 
 [⬅ Back to the main list](../README.md) · 52 papers, newest first within each section.
 
-*Collective behaviour from simple local rules, and recent work that brings swarm ideas to LLMs and their weights.*
+*Collective behaviour from simple local rules, and recent work that brings swarm ideas to LLM agents, robot swarms and model weights.*
 
 - [Classic Swarm Intelligence & Swarm Robotics](#classic-swarm-intelligence--swarm-robotics) (25)
 - [LLM Agent Swarms & Swarm-Inspired Methods](#llm-agent-swarms--swarm-inspired-methods) (27)
