@@ -5,9 +5,9 @@
 A curated list of papers on **multi-agent and swarm agentic systems**: many agents (LLM-based or not) that work together, argue, compete, or get trained as a group. It runs from early swarm intelligence and multi-agent RL to recent LLM agent societies, and covers **frameworks, orchestration, automated system design, debate, training (RL, fine-tuning, self-play), data synthesis, evaluation, simulation, safety and applications**.
 
 - **{{N_PAPERS}} papers** in total, {{N_LLM}} of them from 2022 or later.
-- Every link was checked. arXiv IDs were checked against arXiv (titles and dates come from arXiv itself), DOIs against Crossref, and code links against GitHub. Each one-line note on an arXiv paper was checked against that paper's abstract.
+- Every link was checked. arXiv IDs were checked against arXiv (titles and dates come from arXiv itself), DOIs against Crossref, and code links against GitHub. Each one-line note on an arXiv paper was written from, or checked against, that paper's abstract. Papers withdrawn on arXiv are left out.
 - Within each section, papers are listed newest first. The date is the first arXiv version (or the publication date if there is no arXiv version). Titles are the current arXiv titles, which are sometimes newer than the name the paper is known by.
-- The data lives in [`data/papers.yaml`](data/papers.yaml), and the README is generated from it by [`scripts/build_readme.py`](scripts/build_readme.py).
+- The list is split into one page per topic (see [Contents](#contents)), because a single page this long is too big for GitHub to render. To search every paper at once, search [`data/papers.yaml`](data/papers.yaml), which is the source for all pages. The pages are generated from it by [`scripts/build_readme.py`](scripts/build_readme.py).
 
 ## Start Here
 

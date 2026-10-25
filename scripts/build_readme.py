@@ -1,4 +1,4 @@
-"""Regenerate README.md from data/papers.yaml.
+"""Regenerate README.md and the per-topic pages in papers/ from data/papers.yaml.
 
 Usage: python scripts/build_readme.py
 """
@@ -15,7 +15,7 @@ SECTIONS = [
     ("Surveys & Position Papers", "Overviews of LLM-based multi-agent systems, agent protocols, simulation, training and safety.", [
         ("surveys", None),
     ]),
-    ("Foundations (Pre-LLM)", "The ideas that LLM multi-agent systems are built on: agent theory, coordination protocols and multi-agent RL.", [
+    ("Multi-Agent Systems & Multi-Agent RL", "Agent theory, coordination protocols and multi-agent reinforcement learning, from the classics to current (non-LLM) MARL.", [
         ("classic_mas", "Classic Multi-Agent Systems"),
         ("marl", "Multi-Agent Reinforcement Learning & Emergent Communication"),
     ]),
@@ -116,23 +116,27 @@ def main():
     head = head.replace("{{N_PAPERS}}", str(len(papers))).replace("{{N_LLM}}", str(llm_era))
 
     toc = ["## Contents", ""]
-    body = []
+    (ROOT / "papers").mkdir(exist_ok=True)
     for gtitle, intro, subs in SECTIONS:
+        slug = anchor(gtitle.replace("&", "and"))
         gcount = sum(len(by_sec.get(k, [])) for k, _ in subs)
-        toc.append(f"- [{gtitle}](#{anchor(gtitle)}) ({gcount})")
-        body += [f"## {gtitle}", "", f"*{intro}*", ""]
+        toc.append(f"- [{gtitle}](papers/{slug}.md) ({gcount})")
+        page = [f"# {gtitle}", "", f"[⬅ Back to the main list](../README.md) · {gcount} papers, newest first within each section.", "", f"*{intro}*", ""]
+        if any(t for _, t in subs):
+            page += [f"- [{t}](#{anchor(t)}) ({len(by_sec.get(k, []))})" for k, t in subs] + [""]
         for key, stitle in subs:
             items = sorted(by_sec.get(key, []), key=lambda p: (str(p["date"]), p["title"]), reverse=True)
             if stitle:
-                toc.append(f"  - [{stitle}](#{anchor(stitle)}) ({len(items)})")
-                body += [f"### {stitle}", ""]
-            body += [entry(p) for p in items] + [""]
-        body += ["**[⬆ back to top](#contents)**", ""]
+                toc.append(f"  - [{stitle}](papers/{slug}.md#{anchor(stitle)}) ({len(items)})")
+                page += [f"## {stitle}", ""]
+            page += [entry(p) for p in items] + [""]
+        page += ["[⬆ Back to top](#) · [⬅ Back to the main list](../README.md)", ""]
+        (ROOT / "papers" / f"{slug}.md").write_text("\n".join(page))
 
     year_rows = ["| Year | Papers |", "|---|---|"] + [f"| {y} | {years[y]} |" for y in sorted(years) if y >= 2022]
     head = head.replace("{{YEAR_TABLE}}", "\n".join(year_rows))
-    (ROOT / "README.md").write_text("\n".join([head.rstrip(), "", *toc, "", *body, tail.strip(), ""]))
-    print(f"README.md: {len(papers)} papers")
+    (ROOT / "README.md").write_text("\n".join([head.rstrip(), "", *toc, "", tail.strip(), ""]))
+    print(f"README.md + {len(SECTIONS)} pages: {len(papers)} papers")
 
 
 if __name__ == "__main__":

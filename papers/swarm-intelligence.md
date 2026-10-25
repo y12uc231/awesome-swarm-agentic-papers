@@ -1,0 +1,68 @@
+# Swarm Intelligence
+
+[⬅ Back to the main list](../README.md) · 52 papers, newest first within each section.
+
+*Collective behaviour from simple local rules, and recent work that brings swarm ideas to LLMs and their weights.*
+
+- [Classic Swarm Intelligence & Swarm Robotics](#classic-swarm-intelligence--swarm-robotics) (25)
+- [LLM Agent Swarms & Swarm-Inspired Methods](#llm-agent-swarms--swarm-inspired-methods) (27)
+
+## Classic Swarm Intelligence & Swarm Robotics
+
+- `2020` **[Reflections on the future of swarm robotics](https://doi.org/10.1126/scirobotics.abe4385)** — Dorigo et al. · *Science Robotics 2020*<br>Perspective on open challenges and future of swarm robotics.
+- `2018-07` **[Deep Reinforcement Learning for Swarm Systems](https://arxiv.org/abs/1807.06613)** — Hüttenrauch et al. · *JMLR 2019*<br>Mean-embedding observations let deep RL scale to large swarms.
+- `2014` **[Programmable self-assembly in a thousand-robot swarm](https://doi.org/10.1126/science.1254295)** — Rubenstein et al. · *Science 2014*<br>1,024 Kilobots self-assemble into shapes via local interactions.
+- `2014` **[Designing Collective Behavior in a Termite-Inspired Robot Construction Team](https://doi.org/10.1126/science.1245842)** — Werfel et al. · *Science 2014*<br>TERMES: stigmergic robots build user-specified structures.
+- `2013` **[Swarm robotics: a review from the swarm engineering perspective](https://doi.org/10.1007/s11721-012-0075-2)** — Brambilla et al. · *Swarm Intelligence 2013*<br>Review of swarm robotics design methods and collective behaviours.
+- `2012` **[Kilobot: A low cost scalable robot system for collective behaviors](https://doi.org/10.1109/ICRA.2012.6224638)** — Rubenstein et al. · *ICRA 2012*<br>Low-cost robot enabling thousand-robot swarm experiments.
+- `2010` **[Evidence for a Collective Intelligence Factor in the Performance of Human Groups](https://doi.org/10.1126/science.1193147)** — Woolley et al. · *Science 2010*<br>Groups show a general 'c factor' of collective intelligence.
+- `2007` **[Consensus and Cooperation in Networked Multi-Agent Systems](https://doi.org/10.1109/JPROC.2006.887293)** — Olfati-Saber et al. · *Proceedings of the IEEE 2007*<br>Theory of consensus algorithms over networked agents.
+- `2007` **[A powerful and efficient algorithm for numerical function optimization: artificial bee colony (ABC) algorithm](https://doi.org/10.1007/s10898-007-9149-x)** — Karaboga & Basturk · *Journal of Global Optimization 2007*<br>Artificial Bee Colony: honeybee-foraging swarm optimizer.
+- `2006` **[Flocking for Multi-Agent Dynamic Systems: Algorithms and Theory](https://doi.org/10.1109/TAC.2005.864190)** — Olfati-Saber · *IEEE Trans. Automatic Control 2006*<br>Control-theoretic flocking algorithms with stability guarantees.
+- `2005` **[Swarm Robotics: From Sources of Inspiration to Domains of Application](https://doi.org/10.1007/978-3-540-30552-1_2)** — Şahin · *Swarm Robotics (SAB 2004 workshop), LNCS 2005*<br>Defines swarm robotics and its criteria (scalability, robustness, flexibility).
+- `2005` **[Effective leadership and decision-making in animal groups on the move](https://doi.org/10.1038/nature03236)** — Couzin et al. · *Nature 2005*<br>Few informed individuals can steer large groups without signalling.
+- `2004` **[Ant Colony Optimization](https://doi.org/10.7551/mitpress/1290.001.0001)** — Dorigo & Stützle · *MIT Press 2004*<br>Comprehensive ACO book: metaheuristic, theory and applications.
+- `2000` **[Inspiration for optimization from social insect behaviour](https://doi.org/10.1038/35017500)** — Bonabeau et al. · *Nature 2000*<br>Nature review of social-insect-inspired optimization and robotics.
+- `1999` **[Swarm Intelligence: From Natural to Artificial Systems](https://doi.org/10.1093/oso/9780195131581.001.0001)** — Bonabeau et al. · *Oxford University Press 1999*<br>Foundational book unifying social-insect models and swarm algorithms.
+- `1999` **[A Brief History of Stigmergy](https://doi.org/10.1162/106454699568700)** — Theraulaz & Bonabeau · *Artificial Life 1999*<br>Reviews stigmergy from Grassé to artificial collective systems.
+- `1998` **[A modified particle swarm optimizer](https://doi.org/10.1109/ICEC.1998.699146)** — Shi & Eberhart · *IEEE ICEC 1998*<br>Adds the inertia weight that became standard PSO.
+- `1997` **[Ant colony system: a cooperative learning approach to the traveling salesman problem](https://doi.org/10.1109/4235.585892)** — Dorigo & Gambardella · *IEEE Trans. Evolutionary Computation 1997*<br>Ant Colony System: improved ACO with local pheromone updates.
+- `1996` **[Ant system: optimization by a colony of cooperating agents](https://doi.org/10.1109/3477.484436)** — Dorigo et al. · *IEEE Trans. SMC-B 1996*<br>Ant System, the first ant colony optimization algorithm (applied to TSP).
+- `1995` **[Particle swarm optimization](https://doi.org/10.1109/ICNN.1995.488968)** — Kennedy & Eberhart · *ICNN 1995*<br>Introduces PSO: optimization via a socially interacting particle swarm.
+- `1995` **[Novel Type of Phase Transition in a System of Self-Driven Particles](https://doi.org/10.1103/PhysRevLett.75.1226)** — Vicsek et al. · *Physical Review Letters 1995*<br>Vicsek model: minimal alignment rule yields collective motion phase transition.
+- `1993` **[Swarm Intelligence in Cellular Robotic Systems](https://doi.org/10.1007/978-3-642-58069-7_38)** — Beni & Wang · *Robots and Biological Systems (NATO ASI) 1993*<br>Introduces the term 'swarm intelligence' for cellular robotic systems.
+- `1990` **[The self-organizing exploratory pattern of the argentine ant](https://doi.org/10.1007/BF01417909)** — Deneubourg et al. · *Journal of Insect Behavior 1990*<br>Pheromone-based shortest-path selection in ants; basis of ACO.
+- `1987` **[Flocks, herds and schools: A distributed behavioral model](https://doi.org/10.1145/37401.37406)** — Reynolds · *SIGGRAPH 1987*<br>Boids: flocking emerges from three local rules (separation, alignment, cohesion).
+- `1959` **[La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes natalensis et Cubitermes sp. La théorie de la stigmergie: essai d'interprétation du comportement des termites constructeurs](https://doi.org/10.1007/BF02223791)** — Grassé · *Insectes Sociaux 1959*<br>Coins 'stigmergy': coordination through traces left in the environment.
+
+## LLM Agent Swarms & Swarm-Inspired Methods
+
+- `2026-10` **[SwarmRSI: Recursive Self-Improvement through Evolving Scientific Agent Swarm](https://arxiv.org/abs/2610.20431)** — Meng et al.<br>Evolves scientific agent swarms with feedback-guided mutation and recombination of hypotheses and code.
+- `2026-10` **[Learning Self-Orchestration in Decentralized Agent Swarms](https://arxiv.org/abs/2610.22322)** — Xu et al. · [[code](https://github.com/Embodied-Minds-Lab/MPT)]<br>Market-based post-training: bidding jointly learns policies and self-orchestration in agent swarms.
+- `2026-09` **[ArcticSwarm: Deferring Early Consensus in Long-Horizon Multi-Agent Research](https://arxiv.org/abs/2609.01870)** — Yoon et al.<br>Research agents post findings to a shared board while gated isolation limits peer reads to defer early consensus; 82.6% on BrowseComp-Plus.
+- `2026-09` **[A Case Study on Emergent Cheating and Whistleblowing in Autonomous Research Swarms](https://arxiv.org/abs/2609.04170)** — Paglieri et al.<br>In a 100-agent research swarm, an evaluation exploit spread through shared memory, then whistleblower agents pushed back.
+- `2026-08` **[SwarmWorld: Stigmergic technological evolution in societies of language-model agents](https://arxiv.org/abs/2608.26081)** — Pal et al.<br>Role-free LLM agents coordinate through a shared environment (stigmergy) and build more resilient technologies than isolated search.
+- `2026-07` **[SwarmResearch: Orchestrating Coding Agents for Open-Ended Discovery](https://arxiv.org/abs/2607.02807)** — Virk et al.<br>A shepherd agent steers a population of search agents on separate git branches for open-ended optimization.
+- `2026-07` **[How Much Does Correctness Cost? Budgeted Placement of Strong Correctors in a Weak Multi-Agent Swarm](https://arxiv.org/abs/2607.09765)** — Itkin<br>Models a weak-agent swarm as graph consensus and asks where to place a few strong correctors under a budget.
+- `2026-04` **[SWARM-LLM: Collaborative Inference for Edge-based Small Language Models](https://arxiv.org/abs/2606.14711)** — Dahshan et al.<br>Routing layer where edge small models answer locally, collaborate with peers, or escalate to a cloud model.
+- `2026-03` **[Efficient and Interpretable Multi-Agent LLM Routing via Ant Colony Optimization](https://arxiv.org/abs/2603.12933)** — Wang et al.<br>AMRO-S: ant-colony-style routing of queries through a heterogeneous agent pool for cost, latency and interpretability.
+- `2026-03` **[Drop the Hierarchy and Roles: How Self-Organizing LLM Agents Outperform Designed Structures](https://arxiv.org/abs/2603.28990)** — Dochkina<br>25,000-task study (4–256 agents): with minimal scaffolding, agents self-organize roles and beat imposed hierarchies.
+- `2026-02` **[SkySim: A ROS2-based Simulation Environment for Natural Language Control of Drone Swarms using Large Language Models](https://arxiv.org/abs/2602.01226)** — Shibu et al.<br>LLM turns natural-language commands into waypoints for 3–30 drones, with a potential-field safety filter.
+- `2025-10` **[SwarmSys: Decentralized Swarm-Inspired Agents for Scalable and Adaptive Reasoning](https://arxiv.org/abs/2510.10047)** — Li et al.<br>Explorer/worker/validator roles with emergent swarm-style decentralized coordination.
+- `2025-06` **[SwarmAgentic: Towards Fully Automated Agentic System Generation via Swarm Intelligence](https://arxiv.org/abs/2506.15672)** — Zhang et al.<br>SwarmAgentic: PSO-style language-space search generates whole agentic systems.
+- `2025-06` **[LLM-Powered Swarms: A New Frontier or a Conceptual Stretch?](https://arxiv.org/abs/2506.14496)** — Rahman et al.<br>Re-implements Boids and ACO with LLM agents; ~300x compute overhead.
+- `2025-05` **[LLM-Flock: LLM-Driven Decentralized Multi-Robot Flocking via Influence-Based Consensus with Collision Avoidance](https://arxiv.org/abs/2505.06513)** — Li & Zhou<br>Decentralized multi-robot flocking where LLM-driven robots refine plans through an influence-based consensus protocol with collision avoidance.
+- `2025-05` **[Benchmarking LLMs' Swarm intelligence](https://arxiv.org/abs/2505.04364)** — Ruan et al. · [[code](https://github.com/RUC-GSAI/YuLan-SwarmIntell)]<br>SwarmBench: decentralized swarm coordination under local perception and communication.
+- `2025-03` **[Nature-Inspired Population-Based Evolution of Large Language Models](https://arxiv.org/abs/2503.01155)** — Zhang et al. · [[code](https://github.com/ZhangYiqun018/GENOME)]<br>GENOME: population-based evolution (crossover, mutation, selection) of LLM weights.
+- `2025-03` **[Multi-Agent Systems Powered by Large Language Models: Applications in Swarm Intelligence](https://arxiv.org/abs/2503.03800)** — Jimenez-Romero et al. · *Frontiers in AI 2025*<br>LLM-driven agents in NetLogo ant foraging and bird flocking simulations.
+- `2025-03` **[GenSwarm: Scalable Multi-Robot Code-Policy Generation and Deployment via Language Models](https://arxiv.org/abs/2503.23875)** — Ji et al.<br>GenSwarm is a multi-language-agent system that generates and deploys code control policies for multi-robot swarms from natural-language instructions in simulation and hardware.
+- `2025-02` **[Heterogeneous Swarms: Jointly Optimizing Model Roles and Weights for Multi-LLM Systems](https://arxiv.org/abs/2502.04510)** — Feng et al. · *NeurIPS 2025*<br>Heterogeneous Swarms: jointly optimize multi-LLM DAG roles and weights with PSO.
+- `2024-10` **[Model Swarms: Collaborative Search to Adapt LLM Experts via Swarm Intelligence](https://arxiv.org/abs/2410.11163)** — Feng et al. · *ICML 2025* · [[code](https://github.com/BunsenFeng/model_swarm)]<br>Model Swarms: LLM experts move through weight space via particle swarm optimization.
+- `2024-10` **[LLM2Swarm: Robot Swarms that Responsively Reason, Plan, and Collaborate through LLMs](https://arxiv.org/abs/2410.11387)** — Strobel et al. · *NeurIPS 2024 Workshop*<br>LLM-augmented robot swarms that reason and collaborate.
+- `2024-05` **[FlockGPT: Guiding UAV Flocking with Linguistic Orchestration](https://arxiv.org/abs/2405.05872)** — Lykov et al.<br>Language-guided UAV flocking into geometric formations.
+- `2024-04` **[ZeroCAP: Zero-Shot Multi-Robot Context Aware Pattern Formation via Large Language Models](https://arxiv.org/abs/2404.02318)** — Venkatesh & Min<br>ZeroCAP uses language and vision-language models to translate natural-language instructions into multi-robot pattern formations such as surrounding, caging, and infilling.
+- `2024-04` **[Challenges Faced by Large Language Models in Solving Multi-Agent Flocking](https://arxiv.org/abs/2404.04752)** — Li et al.<br>Shows LLM agents acting as individual decision-makers fail at multi-agent flocking, converging to the average position or diverging.
+- `2024-02` **[Language Agents as Optimizable Graphs](https://arxiv.org/abs/2402.16823)** — Zhuge et al. · *ICML 2024* · [[code](https://github.com/metauto-ai/GPTSwarm)]<br>GPTSwarm: agents as optimizable graphs; node prompts and edges optimized.
+- `2023-12` **[Swarm-GPT: Combining Large Language Models with Safe Motion Planning for Robot Choreography Design](https://arxiv.org/abs/2312.01059)** — Jiao et al.<br>LLM choreographs drone swarms with safe motion planning.
+
+[⬆ Back to top](#) · [⬅ Back to the main list](../README.md)
