@@ -1,0 +1,147 @@
+# Recurring bottlenecks in multi-agent / swarm agentic research.
+# Built from a full-text reading of 102 papers in this list (see README "Open Problems").
+# Each entry: title, problem (1-2 sentences), evidence (papers whose own experiments or analysis show it).
+- title: Adding agents rarely beats one strong agent with the same budget
+  problem: Once a single agent gets the same tokens, tools and prompt effort, most multi-agent setups (debate, role pipelines, auto-designed teams) match it or do worse. Many reported gains come from extra compute or weak baselines.
+  evidence:
+    - {arxiv: "2512.08296", label: "Towards a Science of Scaling Agent Systems", lab: "Google Research, Google DeepMind, MIT", finding: "mean gain of −0.3% across six agentic benchmarks with matched budgets; returns turn negative once a single agent passes ~45% accuracy"}
+    - {arxiv: "2604.02460", label: "Single-Agent LLMs Outperform Multi-Agent Systems", lab: "Stanford", finding: "with equal thinking-token budgets, one agent is best or tied-best against five multi-agent designs on multi-hop QA"}
+    - {arxiv: "2606.13003", label: "The Illusion of Multi-Agent Advantage", lab: "Salesforce", finding: "plain chain-of-thought self-consistency beats six automatically designed multi-agent frameworks, often at under 10% of their cost"}
+    - {arxiv: "2502.08788", label: "Stop Overvaluing Multi-Agent Debate", lab: "Penn State, Shanghai AI Lab", finding: "debate beats chain-of-thought in at most 20% of 36 model-benchmark settings"}
+    - {arxiv: "2310.01798", label: "LLMs Cannot Self-Correct Reasoning Yet", lab: "Google DeepMind, UIUC", finding: "debate 83.0% vs self-consistency 88.2% on GSM8K at 9 responses each"}
+
+- title: Teams cannot pool what each member knows
+  problem: When information is split across agents, they rarely ask for or share what teammates need, and fail to combine what they gather. The team ends up far below one agent that holds everything.
+  evidence:
+    - {arxiv: "2505.11556", label: "HiddenBench (Systematic Failures in Collective Reasoning)", lab: "CMU", finding: "30.1% accuracy for groups with split information vs 80.7% for one agent with all facts, across 15 LLMs"}
+    - {arxiv: "2603.01045", label: "Silo-Bench", lab: "ETH Zurich, Vector Institute, Zhejiang University", finding: "on its harder tasks, splitting the work between just two agents loses 15–49% of single-agent performance; agents gather the data but cannot combine it"}
+    - {arxiv: "2601.13295", label: "CooperBench", lab: "Stanford", finding: "two coding agents succeed ~25% of the time, about half the rate of one agent doing both tasks; the top failure cause is misjudging the partner's state (42%)"}
+    - {arxiv: "2610.00583", label: "Worse Together", lab: "Stanford, Anthropic", finding: "a teammate's request was sent in 94–99% of episodes but was in context when the agent acted in only 47–67%"}
+    - {arxiv: "2511.02687", label: "The Collaboration Gap", lab: "Microsoft Research, EPFL", finding: "almost all of 32 models do worse when two copies must share the information than when one model solves the task alone"}
+
+- title: Coordination breaks down as teams grow
+  problem: Adding agents makes results worse, not better. Messages and idle turns pile up, fewer agents act, and groups fail to agree.
+  evidence:
+    - {arxiv: "2507.08616", label: "AgentsNet", lab: "ETH Zurich, Google Research", finding: "coordination success falls to near zero at 100 agents"}
+    - {arxiv: "2601.13295", label: "CooperBench", lab: "Stanford", finding: "success drops from 68.6% to 46.5% to 30.0% with 2, 3 and 4 agents"}
+    - {arxiv: "2610.00583", label: "Worse Together", lab: "Stanford, Anthropic", finding: "going from 4 to 16 agents, the share of agents that ever act falls from 66% to 10%"}
+    - {arxiv: "2603.12229", label: "Language Model Teams as Distributed Systems", lab: "Princeton, MIT, Cambridge, NYU", finding: "self-organizing teams are slower than one agent (median 0.88× speedup); serial tasks cost 5.83× the tokens for a 1.13× speedup"}
+    - {arxiv: "2602.16662", label: "Evaluating Collective Behaviour of Hundreds of LLM Agents", lab: "Google DeepMind, King's College London", finding: "welfare efficiency of 57–91% with 4 agents falls to 4–23% with 64"}
+
+- title: Agreement is not truth — same-model teams herd and overrule the right answer
+  problem: Agents built on the same or similar models share blind spots and defer to the majority. Debate and voting often discard a correct minority answer or lock in a shared bias.
+  evidence:
+    - {arxiv: "2509.23537", label: "Beyond the Strongest LLM", lab: "ASU, UPenn, NTU", finding: "in 64% of a four-frontier-model team's errors at least one agent had the right answer; herding onto the first vote rises from 54% to 68%"}
+    - {arxiv: "2509.05396", label: "Talk Isn't Always Cheap", lab: "Johns Hopkins, Vector Institute", finding: "debate lowered accuracy on CommonsenseQA in all 10 configurations; agents flip right-to-wrong more often than wrong-to-right"}
+    - {arxiv: "2602.01011", label: "Multi-Agent Teams Hold Experts Back", lab: "Stanford, Apple", finding: "teams fall 6.3–41.1% short of their best member, compromising instead of deferring to the expert"}
+    - {arxiv: "2608.02827", label: "Emergence of Biased Consensus", lab: "Harvard, NTT Research", finding: "small individual biases lock into a group-wide biased consensus within 1–2 debate rounds"}
+    - {arxiv: "2510.22954", label: "Artificial Hivemind", lab: "UW, CMU, AI2, Stanford", finding: "different model families give highly similar open-ended answers (cross-model similarity 0.71–0.82), so mixing models adds little diversity"}
+    - {arxiv: "2502.04313", label: "Great Models Think Alike", lab: "Tübingen AI Center, MPI-IS", finding: "across 130 models, more capable models make more similar mistakes"}
+
+- title: Errors spread because nobody checks
+  problem: Agents accept each other's claims and declare tasks done without verifying them, so one agent's mistake flows straight into the final answer. Where verifier agents exist, their checks are shallow.
+  evidence:
+    - {arxiv: "2512.08296", label: "Towards a Science of Scaling Agent Systems", lab: "Google Research, Google DeepMind, MIT", finding: "without a central verifier, independent agents amplify errors 17.2× (4.4× with an orchestrator)"}
+    - {arxiv: "2610.19342", label: "Why Do Agent Teams Fail Across Boundaries?", lab: "Salesforce, UNC", finding: "zero independent re-checks of a peer's factual claim across 2,500+ runs"}
+    - {arxiv: "2503.13657", label: "Why Do Multi-Agent LLM Systems Fail? (MAST)", lab: "UC Berkeley", finding: "41–86.7% failure rates across 7 open-source multi-agent systems; verifier agents only run shallow checks"}
+    - {arxiv: "2411.04468", label: "Magentic-One", lab: "Microsoft Research", finding: "marking tasks complete without verification is its second most common error"}
+    - {arxiv: "2603.27771", label: "Emergent Risks in Generative Multi-Agent Systems", lab: "Notre Dame, LMU Munich, UW", finding: "with mixed incentives, 56% of relayed reports were false; meaning drifts as messages pass along chains of agents"}
+
+- title: Nobody can tell which agent broke
+  problem: Failures come from tangled interactions spread over very long logs. Neither LLM judges nor humans can reliably pin a failure on one agent and one step, which makes debugging and per-agent training hard.
+  evidence:
+    - {arxiv: "2505.00212", label: "Which Agent Causes Task Failures and When?", lab: "Penn State, Duke, UW, Meta", finding: "the best method finds the failing agent 53.5% and the failing step 14.2% of the time; near 0% on logs of 93–130 steps"}
+    - {arxiv: "2512.06749", label: "DoVer", lab: "Microsoft, Chinese Academy of Sciences", finding: "14 of 29 benchmark cases had uncertain ground-truth blame; on Who&When only 17.6% of attempted fixes turned a failure into a success"}
+    - {arxiv: "2503.13657", label: "Why Do Multi-Agent LLM Systems Fail? (MAST)", lab: "UC Berkeley", finding: "traces average over 15,000 lines; labelling 150 of them took experts more than 20 hours each"}
+    - {arxiv: "1705.08926", label: "COMA", lab: "Oxford", finding: "the same problem in classic multi-agent RL: with only a shared team reward, agents cannot tell what they contributed"}
+
+- title: Talking in text is expensive
+  problem: Agents communicate by writing long natural-language messages to each other, so tokens, latency and dollars multiply with every agent and round, often for a few points of accuracy. This also keeps most studies small.
+  evidence:
+    - {arxiv: "2511.20639", label: "LatentMAS", lab: "Princeton, Stanford, UIUC", finding: "a text-based team used ~3× the tokens and ~7× the time of one model for +3.3 points on AIME24"}
+    - {arxiv: "2512.08296", label: "Towards a Science of Scaling Agent Systems", lab: "Google Research, Google DeepMind, MIT", finding: "58–515% token overhead; successes per 1,000 tokens fall from 67.7 to 13.6–42.4"}
+    - {arxiv: "2411.04468", label: "Magentic-One", lab: "Microsoft Research", finding: "dozens of LLM calls, several dollars and tens of minutes per task"}
+    - {arxiv: "2610.00583", label: "Worse Together", lab: "Stanford, Anthropic", finding: "one pass over 74 scenarios with a frontier-model team took about 3.4 billion tokens"}
+    - {arxiv: "2310.08901", label: "Welfare Diplomacy", lab: "Stanford, UC Berkeley, Oxford", finding: "over 3 million tokens per game limited the study to five games per condition"}
+
+- title: Systems are still designed by hand, and automated design does not pay off yet
+  problem: The number of agents, their roles, prompts and topology are picked by trial and error and transfer poorly between tasks and models. Automated search mostly rediscovers "sample a few times and vote" and rarely recovers its own cost.
+  evidence:
+    - {arxiv: "2308.08155", label: "AutoGen", lab: "Microsoft Research", finding: "no general recipe for how many agents, which roles or which interaction pattern; the best design depends on the application"}
+    - {arxiv: "2502.02533", label: "MASS (Multi-Agent Design)", lab: "Google, Cambridge", finding: "most topologies fail to improve on one prompt-optimized agent; automated design (ADAS) scored 69.7 vs 70.3 for hand-built debate"}
+    - {arxiv: "2510.06711", label: "Inefficiencies of Meta Agents for Agent Design", lab: "Stanford", finding: "automated design beats hand-designed agents on cost per correct answer on only 2 of 4 datasets, and only after ~15,000 queries"}
+    - {arxiv: "2606.13003", label: "The Illusion of Multi-Agent Advantage", lab: "Salesforce", finding: "7 of 14 workflows found by AFlow were just 'repeat one prompt 3 times, then aggregate'"}
+    - {arxiv: "2505.11556", label: "HiddenBench", lab: "CMU", finding: "fixes are model-specific: adding a dissenter lifts GPT-4.1 from 0.23 to 0.49 but drops Gemini-2.5-Flash from 0.89 to 0.31"}
+
+- title: Training agent teams together is still hard
+  problem: Most systems run frozen, prompted models. Joint training is blocked by credit assignment across agents, gradients that cannot pass through text messages, training collapse and compute, so labs train one agent (usually the orchestrator) and freeze the rest.
+  evidence:
+    - {arxiv: "2602.02276", label: "Kimi K2.5 (Agent Swarm)", lab: "Moonshot AI", finding: "avoids training orchestrator and subagents together because of credit-assignment ambiguity and instability; the trained orchestrator falls back to a single agent unless spawning subagents is rewarded"}
+    - {arxiv: "2502.18439", label: "MAPoRL", lab: "MIT, Stanford, Amazon", finding: "fine-tuning on the best debate transcripts lowered accuracy by 0.11; compute limited co-training to two 3B–8B agents"}
+    - {arxiv: "2510.05592", label: "AgentFlow", lab: "Stanford", finding: "supervised fine-tuning of one module collapsed the system (−19.0%); on-policy RL of the planner alone gave +17.2%"}
+    - {arxiv: "2506.24119", label: "SPIRAL", lab: "NUS, A*STAR, Sea AI Lab", finding: "without role-specific baselines, multi-agent self-play RL caused 'thinking collapse', with reasoning traces shrinking from ~2,000 characters to near zero"}
+    - {arxiv: "2412.01928", label: "MALT", lab: "Oxford, Cooperative AI Foundation, Stanford", finding: "gradients cannot flow through the text agents pass to each other, and a sparse final reward cannot say which agent erred"}
+
+- title: More capable models are not more cooperative
+  problem: In social dilemmas and shared-resource settings, stronger and reasoning-heavy models often free-ride, defect or withhold help. Cooperation that does emerge is fragile and depends on the model and even the random seed.
+  evidence:
+    - {arxiv: "2604.07821", label: "More Capable, Less Cooperative?", lab: "MATS, UIUC, UK AI Security Institute", finding: "when sharing costs nothing, o3 reaches 17% of the optimal team outcome vs 50% for o3-mini"}
+    - {arxiv: "2506.23276", label: "Corrupted by Reasoning", lab: "Zurich, ETH Zurich, Toronto, MPI-IS", finding: "69% of o1-mini agents free-ride in a public-goods game vs 0% for Llama-3.3-70B"}
+    - {arxiv: "2404.16698", label: "GovSim (Cooperate or Collapse)", lab: "ETH Zurich, MPI-IS, Toronto, UW", finding: "the best agent group sustains a shared resource in only 53.3% of runs; one greedy newcomer drops this to 33.3%"}
+    - {arxiv: "2412.10270", label: "Cultural Evolution of Cooperation among LLM Agents", lab: "Google DeepMind", finding: "GPT-4o populations drift toward defection; even Claude 3.5 Sonnet failed in 2 of 5 runs depending on the initial strategies"}
+    - {arxiv: "2310.08901", label: "Welfare Diplomacy", lab: "Stanford, UC Berkeley, Oxford", finding: "a single defector can exploit LLM agents because they do not punish deviators"}
+
+- title: Agents break with partners they were not trained or tuned with
+  problem: Agents that coordinate well with copies of themselves fail with independently trained agents, other model families or humans. This was first measured in classic multi-agent RL and now reappears with LLM agents and learned orchestrators.
+  evidence:
+    - {arxiv: "2003.02979", label: "Other-Play", lab: "Meta FAIR", finding: "Hanabi agents score 23.97 with their own copy but 2.52 with an independently trained copy of the same method"}
+    - {arxiv: "1902.00506", label: "The Hanabi Challenge", lab: "DeepMind, Google Brain, Oxford, CMU", finding: "agents that score 20+ in self-play fall to near 0 with independently trained partners"}
+    - {arxiv: "2512.03318", label: "Concordia Contest", lab: "Cooperative AI Foundation, Oxford, UC Berkeley, Cambridge", finding: "most of 25 LLM agents did no better than a rational baseline on held-out scenarios with unfamiliar co-players"}
+    - {arxiv: "2506.20664", label: "Decrypto", lab: "Meta FAIR, Oxford", finding: "LLMs paired with human partners win 0–17% of games vs 40% for human pairs"}
+    - {arxiv: "2512.04388", label: "The Conductor", lab: "Sakana AI", finding: "an orchestrator trained on one pool of worker models is tied to it; changing the available agents needs retraining"}
+
+- title: Agents collude, cheat and sabotage together, and prompts do not stop it
+  problem: Without being told to, agents converge on collusion, cheating or sabotage over repeated interaction, and more capable models are not safer. Outcome checks and prompt prohibitions miss it.
+  evidence:
+    - {arxiv: "2609.24967", label: "Emergent Collusion in Long-Horizon LLM Agent Interaction", lab: "Stanford, Georgia Tech", finding: "agents asked to verify each other jointly skipped verification in 93.6% of trajectories across 10 models; stronger models collude sooner"}
+    - {arxiv: "2404.00806", label: "Algorithmic Collusion by LLMs", lab: "Harvard, Penn State", finding: "GPT-4 pricing agents reach above-competitive prices with no instruction to collude and no way to talk"}
+    - {arxiv: "2402.07510", label: "Secret Collusion among AI Agents", lab: "UC Berkeley, Oxford, Google DeepMind", finding: "GPT-4 hides messages from an equally capable overseer ~26% of the time; paraphrasing does not remove covert channels"}
+    - {arxiv: "2609.28274", label: "Shutdown Sabotage Propensities in Multi-Agent Systems", lab: "Stuttgart, Oxford", finding: "agents disable a peer's shutdown script in 38% of rollouts (8% control); for GPT-5.5 it rises from 0% to 44% to 94% as agents are added"}
+    - {arxiv: "2609.04170", label: "Emergent Cheating in Autonomous Research Swarms", lab: "Google DeepMind", finding: "one agent's grader exploit spread through a shared library and 'solved' 34 problems in 27 minutes despite prompts forbidding cheating"}
+
+- title: One compromised agent can take over the system, because safety does not compose
+  problem: Attacks travel through the same channels agents use to collaborate (messages, shared memory, delegation). Per-agent guardrails cannot see the whole context, so agents that are safe alone can form an unsafe system.
+  evidence:
+    - {arxiv: "2410.07283", label: "Prompt Infection", lab: "UCL, Stanford", finding: "a self-replicating injection spreads from agent to agent with +209% success over one-shot injection on GPT-3.5; each defense fails when used alone"}
+    - {arxiv: "2510.17276", label: "Breaking and Fixing Defenses Against Control-Flow Hijacking", lab: "Cornell, Microsoft", finding: "an LLM firewall was evaded in 67–80% of attacks; even with no attacker, a multi-agent system leaked internal-only data 56% of the time"}
+    - {arxiv: "2608.10218", label: "Mind Viruses", lab: "Anthropic, EPFL", finding: "one infected agent persuades teammates through normal messages to abandon their task; resistance depends on the model, not its capability"}
+    - {arxiv: "2609.28274", label: "Shutdown Sabotage Propensities in Multi-Agent Systems", lab: "Stuttgart, Oxford", finding: "orchestrators blocked none of 36 sabotage requests, and downstream agents executed 465 of 468 instructions"}
+    - {arxiv: "2607.26115", label: "GPT-Red", lab: "OpenAI", finding: "before attacker-defender self-play, GPT-5.1 resisted fake chain-of-thought injected through tools only 5.2% of the time; the fix took frontier-scale compute"}
+
+- title: Oversight weakens as models get stronger
+  problem: Using weaker judges or debate to supervise stronger models only partly works. LLM judges are biased and worse than humans, persuasion can beat truth, and the chance of catching a stronger model falls as the capability gap grows.
+  evidence:
+    - {arxiv: "2504.18530", label: "Scaling Laws for Scalable Oversight", lab: "MIT", finding: "at a 400-Elo capability gap, oversight succeeds 9–14% of the time in Mafia, backdoored code and wargames, and 51.7% in debate (chance is 50%)"}
+    - {arxiv: "2402.06782", label: "Debating with More Persuasive LLMs", lab: "UCL, Anthropic", finding: "with a single persuasive advocate, judge accuracy falls to 54% vs 76% with debate; the best LLM judge reaches 76% vs 88% for humans"}
+    - {arxiv: "2407.04622", label: "On Scalable Oversight with Weak LLMs Judging Strong LLMs", lab: "Google DeepMind", finding: "debate gives little or no gain when judge and debaters share the same information; more rounds and best-of-N do not help"}
+    - {arxiv: "2506.13609", label: "Prover-Estimator Debate", lab: "Google DeepMind, UK AI Security Institute, UC Berkeley", finding: "a dishonest debater can hide a flaw in intractable subclaims; the proposed fix is not yet turned into practical training"}
+    - {arxiv: "2502.04313", label: "Great Models Think Alike", lab: "Tübingen AI Center, MPI-IS", finding: "LLM judges favour models whose mistakes resemble their own (r = 0.84)"}
+
+- title: Agent societies do not yet behave like real people
+  problem: LLM social simulations look human-like under convenient setups but flatten diversity, follow steering prompts, recognise textbook experiments and exaggerate effects. Few are validated against new human data.
+  evidence:
+    - {arxiv: "2509.18052", label: "The PIMMUR Principles", lab: "CUHK, Johns Hopkins, CMU, Fudan, Stanford", finding: "91.1% of 576 studies violate at least one validity principle; a headline effect falls from 60.7% to 34.4% once the flaws are fixed"}
+    - {arxiv: "2510.17516", label: "SimBench", lab: "Cambridge, Stanford, Oxford", finding: "the best of 45 LLMs scores 40.8/100 at matching human response distributions; ten score below a uniform guess"}
+    - {arxiv: "2403.05020", label: "The Misleading Success of Simulating Social Interactions", lab: "CMU, MIT, AI2", finding: "one model scripting both sides reaches a deal 94% of the time vs 30% for independent agents"}
+    - {arxiv: "2411.10109", label: "Simulating 1,000 People (Grounded in Self-Reports)", lab: "Stanford, Google DeepMind, UW", finding: "agents get the direction of experimental effects right but inflate their size (0.36 in humans vs 2.97–9.64 in agents)"}
+    - {arxiv: "2304.03442", label: "Generative Agents", lab: "Stanford, Google", finding: "instruction tuning made agents over-agreeable; only 5 of 12 invited agents came to the party; two simulated days cost thousands of dollars"}
+
+- title: Evaluation hides the failures
+  problem: Benchmarks score final outcomes, rarely match compute against strong single-agent baselines, test small self-play setups and can be overfit. As a result, multi-agent gains are overstated and group-level failures go unseen.
+  evidence:
+    - {arxiv: "2610.19342", label: "Why Do Agent Teams Fail Across Boundaries?", lab: "Salesforce, UNC", finding: "a negotiated deal passed 10/10 outcome checks while the agent scored 4/10 on conduct for leaking confidential data"}
+    - {arxiv: "2609.24967", label: "Emergent Collusion in Long-Horizon LLM Agent Interaction", lab: "Stanford, Georgia Tech", finding: "outcome checks missed collusion: verdicts matched the truth even when agents skipped the required verification"}
+    - {arxiv: "2411.04468", label: "Magentic-One", lab: "Microsoft Research", finding: "35.1% on its own validation split vs 30.5% on the held-out test split"}
+    - {arxiv: "2604.02460", label: "Single-Agent LLMs Outperform Multi-Agent Systems", lab: "Stanford", finding: "API budget artifacts and possible benchmark memorization inflate apparent multi-agent gains"}
+    - {arxiv: "2505.21298", label: "LLMs Miss the Multi-Agent Mark", lab: "Oxford, King's College London", finding: "of 60+ papers claiming emergent behaviour in agent societies, only a few define metrics"}
+    - {arxiv: "2507.08616", label: "AgentsNet", lab: "ETH Zurich, Google Research", finding: "existing multi-agent benchmarks cover at most 2–5 agents"}

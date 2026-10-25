@@ -30,6 +30,8 @@ If you are new to the area, these papers give the shape of the field.
 | [Multi-Agent Risks from Advanced AI](https://arxiv.org/abs/2502.14143) (2025) | Miscoordination, conflict and collusion as distinct risk classes. |
 | [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296) (2025) | Controlled experiments on when adding agents helps and when it hurts. |
 
+{{OPEN_PROBLEMS}}
+
 ## Papers by Year
 
 The table covers 2022 onward. The topic pages also hold {{N_PRE}} earlier papers, going back to {{MIN_YEAR}}.

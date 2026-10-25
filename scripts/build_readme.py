@@ -104,6 +104,33 @@ def entry(p):
     return line
 
 
+OPEN_PROBLEMS_INTRO = (
+    "What is actually broken, according to the papers themselves. The full text (not just the abstract) of {n_read} papers "
+    "in this list was read, chosen from work by well-known labs and universities such as Google DeepMind, OpenAI, Anthropic, "
+    "Meta, Microsoft, NVIDIA, Moonshot AI, Stanford, MIT, Berkeley, CMU, Oxford, Cambridge, Princeton, Harvard and Mila, "
+    "with an emphasis on analysis, failure, scaling, training and safety papers. Every problem a paper showed in its "
+    "experiments, argued for, or admitted as a limitation was recorded with a quote checked against the paper text "
+    "({n_items} in total). The {n_problems} patterns below recur across many of those papers and labs. Each one lists "
+    "papers whose own results show it."
+)
+
+
+def render_open_problems(problems, papers_by_id):
+    lines = ["## Open Problems: Where the Field Is Stuck", "",
+             OPEN_PROBLEMS_INTRO.format(n_read=102, n_items=638, n_problems=len(problems)), ""]
+    for i, prob in enumerate(problems, 1):
+        lines.append(f"{i}. [{prob['title']}](#{anchor(f'{i}. ' + prob['title'])})")
+    lines.append("")
+    for i, prob in enumerate(problems, 1):
+        lines += [f"### {i}. {prob['title']}", "", prob["problem"], ""]
+        for ev in prob["evidence"]:
+            assert ev["arxiv"] in papers_by_id, f"cited paper not in list: {ev['arxiv']}"
+            lines.append(f"- [{md(ev['label'])}](https://arxiv.org/abs/{ev['arxiv']}) ({ev['lab']}): {md(ev['finding'])}.")
+        lines.append("")
+    lines.append("[⬆ Back to top](#)")
+    return "\n".join(lines)
+
+
 def main():
     papers = yaml.safe_load((ROOT / "data" / "papers.yaml").read_text())
     known = {k for _, _, subs in SECTIONS for k, _ in subs}
@@ -121,7 +148,7 @@ def main():
                  "{{N_PRE}}": f"{len(papers) - llm_era:,}", "{{MIN_YEAR}}": str(min(years))}.items():
         head = head.replace(k, v)
 
-    toc = ["## Contents", ""]
+    toc = ["## Contents", "", "- [Open Problems: Where the Field Is Stuck](#open-problems-where-the-field-is-stuck)"]
     (ROOT / "papers").mkdir(exist_ok=True)
     for gtitle, intro, subs in SECTIONS:
         slug = anchor(gtitle.replace("&", "and"))
@@ -139,6 +166,9 @@ def main():
             page += [entry(p) for p in items] + [""]
         page += ["[⬆ Back to top](#) · [⬅ Back to the main list](../README.md)", ""]
         (ROOT / "papers" / f"{slug}.md").write_text("\n".join(page))
+
+    problems = yaml.safe_load((ROOT / "data" / "open_problems.yaml").read_text())
+    head = head.replace("{{OPEN_PROBLEMS}}", render_open_problems(problems, {p.get("arxiv"): p for p in papers}))
 
     year_rows = ["| Year | Papers |", "|---|---|"] + [f"| {y} | {years[y]} |" for y in sorted(years) if y >= 2022]
     head = head.replace("{{YEAR_TABLE}}", "\n".join(year_rows))

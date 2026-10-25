@@ -11,7 +11,7 @@ Missing a paper, or found a wrong link or category? Pull requests are welcome.
    - `section`: one of the keys in [`scripts/build_readme.py`](scripts/build_readme.py)
    - `note`: one sentence on what the paper does or finds
    - `code` (optional, official repository only)
-2. Regenerate the README and the topic pages: `pip install pyyaml && python scripts/build_readme.py`.
+2. Regenerate the README and the topic pages: `pip install pyyaml && python scripts/build_readme.py`. The Open Problems section is generated from [`data/open_problems.yaml`](data/open_problems.yaml) in the same way.
 3. Open a pull request.
 
 **What belongs here:** papers where several agents (or a population, team or swarm of them) interact, cooperate, compete or are trained together. That includes classic multi-agent systems and multi-agent RL, with or without LLMs. Work on a single model is in scope when the model plays several roles with or against itself (self-play, co-evolution, parallel reasoning threads), or when the work is about building, training or evaluating multi-agent systems.
