@@ -8743,6 +8743,12 @@
   venue: AAAI 2026
   section: marl_llm
   note: Agents produce multiple chain-of-draft responses scored by peer agents and a reward model, and selected drafts drive actor-critic RL.
+- title: 'MultiAgent-OPD: End-to-End Training of Hierarchical Multi-Agent Systems with On-Policy Distillation'
+  arxiv: "2610.23234"
+  date: 2026-10
+  authors: Sun et al.
+  section: marl_llm
+  note: A frozen teacher provides token-level supervision on Searcher rollouts while the Leader and Answerer learn from outcomes in a shared policy.
 - title: 'Multi-Agent Deep Research: Training Multi-Agent Systems with M-GRPO'
   arxiv: "2511.13288"
   date: 2025-11
