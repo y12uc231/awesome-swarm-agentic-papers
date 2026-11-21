@@ -1,10 +1,10 @@
 # Training Multi-Agent Systems
 
-[⬅ Back to the main list](../README.md) · 191 papers, newest first within each section.
+[⬅ Back to the main list](../README.md) · 192 papers, newest first within each section.
 
 *Learning the agents (not only prompting them): RL, fine-tuning, self-play and parallel reasoning.*
 
-- [Multi-Agent RL for LLM Agents](#multi-agent-rl-for-llm-agents) (59)
+- [Multi-Agent RL for LLM Agents](#multi-agent-rl-for-llm-agents) (60)
 - [Multi-Agent Fine-Tuning & Self-Improvement](#multi-agent-fine-tuning--self-improvement) (31)
 - [Self-Play, Adversarial Games & Co-Evolution](#self-play-adversarial-games--co-evolution) (74)
 - [Parallel & Concurrent Reasoners](#parallel--concurrent-reasoners) (27)
@@ -12,6 +12,7 @@
 ## Multi-Agent RL for LLM Agents
 
 - `2026-10` **[Training LLMs for Multi-Agent Collaboration with Verifiable Information Rewards](https://arxiv.org/abs/2610.17893)** — Chen et al.<br>Post-trains LLM agents via self-play with surprisal-based rewards for sharing and requesting evidence, transferring collaboration skills to seven unseen tasks.
+- `2026-10` **[MultiAgent-OPD: End-to-End Training of Hierarchical Multi-Agent Systems with On-Policy Distillation](https://arxiv.org/abs/2610.23234)** — Sun et al.<br>A frozen teacher provides token-level supervision on Searcher rollouts while the Leader and Answerer learn from outcomes in a shared policy.
 - `2026-08` **[Co-RL: Unsupervised Reasoning Emerges from Diverse Cohort in Multi-agent RL](https://arxiv.org/abs/2608.17253)** — Yang et al. · [[code](https://github.com/DrStranded/Co-RL)]<br>Trains multiple decoupled models simultaneously with RL using peer-derived rewards; cohort diversity reduces correlated errors and mitigates collapse in unsupervised reasoning.
 - `2026-06` **[Sakana Fugu Technical Report](https://arxiv.org/abs/2606.21228)** — Tang et al.<br>Sakana Fugu: orchestrator LMs trained to devise agentic scaffolds over an LLM team.
 - `2026-06` **[Orchestra-o1: Omnimodal Agent Orchestration](https://arxiv.org/abs/2606.13707)** — Zhang et al. · [[code](https://github.com/zfkarl/Orchestra-o1)]<br>Orchestra-o1: omnimodal orchestrator trained with DA-GRPO; parallel sub-agent execution.
